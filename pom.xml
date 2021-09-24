@@ -27,6 +27,7 @@
 			<properties>
 				<lib.type>so</lib.type>
 				<mathsat5.name>libmathsat5j</mathsat5.name>
+				<os.string>unix</os.string>
 			</properties>
 			<dependencies>
 				<!-- Boolector has three dependencies (on Linux) -->
@@ -91,24 +92,10 @@
 						<version>3.1.1</version>
 						<executions>
 							<execution>
-								<!-- The goal "copy" is used to change the name of the solver libraries (i.e. Z3) from the name that is used internally in Maven to the normal name. -->
 								<id>copy</id>
 								<phase>initialize</phase>
 								<goals>
 									<goal>copy</goal>
-								</goals>
-							</execution>
-							<execution>
-								<!-- This copies all dependencies to ${project.dependency.path}. -->
-								<!-- We do this, because the sosy-lab.commons dependency (in JavaSMT) searches the native solver binaries (i.e. MathSAT or Z3) at specific locations and with
-                                    specific names. So we just copy the dependencies and set the classpath to this location. You may of course change this if you know how to. Default search locations
-                                    for sosy-lab.commons: (1) in its own folder (by far the easiest, just copy everything together) or (2) in the "native library path" as returned by getNativeLibraryPath()
-                                    in Java, which is the directory ../native/<arch>-<os>/ relative to the JAR file of sosy-lab.commons, with the following values depending on your system (arch=x86_64|x86;
-                                    os=linux|windows|macosx). -->
-								<id>copy-dependencies</id>
-								<phase>validate</phase>
-								<goals>
-									<goal>copy-dependencies</goal>
 								</goals>
 							</execution>
 						</executions>
@@ -127,7 +114,7 @@
 									<artifactId>javasmt-solver-mathsat5</artifactId>
 									<type>${lib.type}</type>
 									<classifier>${mathsat5.name}</classifier>
-									<destFileName>libmathsat5j.${lib.type}</destFileName>
+									<destFileName>${mathsat5.name}.${lib.type}</destFileName>
 								</artifactItem>
 
 								<!-- Z3 has two native libraries -->
@@ -207,7 +194,54 @@
 			<properties>
 				<lib.type>dll</lib.type>
 				<mathsat5.name>mathsat5j</mathsat5.name>
+				<os.string>windows</os.string>
 			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- The dependency plugin allows us to copy or delete files. -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<version>3.1.1</version>
+						<executions>
+							<execution>
+								<id>copy</id>
+								<phase>initialize</phase>
+								<goals>
+									<goal>copy</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<outputDirectory>${project.dependency.path}</outputDirectory>
+
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.sosy-lab</groupId>
+									<artifactId>javasmt-solver-mathsat5</artifactId>
+									<type>${lib.type}</type>
+									<classifier>${mathsat5.name}</classifier>
+									<destFileName>${mathsat5.name}.${lib.type}</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.sosy-lab</groupId>
+									<artifactId>javasmt-solver-z3</artifactId>
+									<type>${lib.type}</type>
+									<classifier>libz3java</classifier>
+									<destFileName>libz3java.${lib.type}</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.sosy-lab</groupId>
+									<artifactId>javasmt-solver-z3</artifactId>
+									<type>${lib.type}</type>
+									<classifier>libz3</classifier>
+									<destFileName>libz3.${lib.type}</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>os-mac</id>
@@ -216,10 +250,57 @@
 					<family>Mac</family>
 				</os>
 			</activation>
+			
 			<properties>
 				<lib.type>dylib</lib.type>
 				<mathsat5.name>libmathsat5j</mathsat5.name>
+				<os.string>mac</os.string>
 			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- The dependency plugin allows us to copy or delete files. -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<version>3.1.1</version>
+						<executions>
+							<execution>
+								<id>copy</id>
+								<phase>initialize</phase>
+								<goals>
+									<goal>copy</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<outputDirectory>${project.dependency.path}</outputDirectory>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.sosy-lab</groupId>
+									<artifactId>javasmt-solver-mathsat5</artifactId>
+									<type>${lib.type}</type>
+									<classifier>${mathsat5.name}</classifier>
+									<destFileName>${mathsat5.name}.${lib.type}</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.sosy-lab</groupId>
+									<artifactId>javasmt-solver-z3</artifactId>
+									<type>${lib.type}</type>
+									<classifier>libz3java</classifier>
+									<destFileName>libz3java.${lib.type}</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.sosy-lab</groupId>
+									<artifactId>javasmt-solver-z3</artifactId>
+									<type>${lib.type}</type>
+									<classifier>libz3</classifier>
+									<destFileName>libz3.${lib.type}</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 
@@ -257,94 +338,11 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.1.1</version>
-				<executions>
-					<execution>
-						<id>copy</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.dependency.path}</outputDirectory>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.sosy-lab</groupId>
-									<artifactId>javasmt-solver-mathsat5</artifactId>
-									<type>${lib.type}</type>
-									<classifier>${mathsat5.name}</classifier>
-									<destFileName>${mathsat5.name}.${lib.type}</destFileName>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.sosy-lab</groupId>
-									<artifactId>javasmt-solver-z3</artifactId>
-									<type>${lib.type}</type>
-									<classifier>libz3java</classifier>
-									<destFileName>libz3java.${lib.type}</destFileName>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.sosy-lab</groupId>
-									<artifactId>javasmt-solver-z3</artifactId>
-									<type>${lib.type}</type>
-									<classifier>libz3</classifier>
-									<destFileName>libz3.${lib.type}</destFileName>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.sosy-lab</groupId>
-									<artifactId>javasmt-solver-boolector</artifactId>
-									<type>${lib.type}</type>
-									<classifier>libboolector</classifier>
-									<destFileName>libboolector.${lib.type}</destFileName>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.sosy-lab</groupId>
-									<artifactId>javasmt-solver-boolector</artifactId>
-									<type>${lib.type}</type>
-									<classifier>libminisat</classifier>
-									<destFileName>libminisat.${lib.type}</destFileName>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.sosy-lab</groupId>
-									<artifactId>javasmt-solver-boolector</artifactId>
-									<type>${lib.type}</type>
-									<classifier>libpicosat</classifier>
-									<destFileName>libpicosat.${lib.type}</destFileName>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.sosy-lab</groupId>
-									<artifactId>javasmt-solver-cvc4</artifactId>
-									<type>${lib.type}</type>
-									<classifier>libcvc4</classifier>
-									<destFileName>libcvc4.${lib.type}</destFileName>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.sosy-lab</groupId>
-									<artifactId>javasmt-solver-cvc4</artifactId>
-									<type>${lib.type}</type>
-									<classifier>libcvc4jni</classifier>
-									<destFileName>libcvc4jni.${lib.type}</destFileName>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.sosy-lab</groupId>
-									<artifactId>javasmt-solver-cvc4</artifactId>
-									<type>${lib.type}</type>
-									<classifier>libcvc4parser</classifier>
-									<destFileName>libcvc4parser.${lib.type}</destFileName>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>3.3.0</version>
 				<configuration>
 					<descriptors>
-						<descriptor>dependency-assembly.xml</descriptor>
+						<descriptor>dependency-assembly-${os.string}.xml</descriptor>
 					</descriptors>
 				</configuration>
 				<executions>
