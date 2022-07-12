@@ -356,7 +356,7 @@
 				<version>3.3.0</version>
 				<configuration>
 					<descriptors>
-						<descriptor>dependency-assembly-${os.string}.xml</descriptor>
+						<descriptor>assembly-descriptor-${os.string}.xml</descriptor>
 					</descriptors>
 				</configuration>
 				<executions>
