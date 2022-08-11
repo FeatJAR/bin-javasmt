@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<extensions>
+    <point id="de.featjar.util.bin.BinaryManager">
+        <extension id="de.featjar.bin.sharpsat.JavaSMTBinary" />
+    </point>
+</extensions>
