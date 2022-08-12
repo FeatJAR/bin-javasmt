@@ -6,7 +6,6 @@ import org.sosy_lab.common.NativeLibraries;
 
 import java.lang.reflect.Field;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Set;
 
 public class JavaSMTBinary extends Binary {
@@ -30,10 +29,10 @@ public class JavaSMTBinary extends Binary {
     }
 
     @Override
-    public Set<Path> getResourcePaths() {
+    public Set<String> getResourceNames() {
         if (OperatingSystem.IS_WINDOWS)
-            return Set.of(Paths.get("bin/mpir.dll"), Paths.get("bin/mathsat.dll"), Paths.get("bin/mathsat5j.dll"));
+            return Set.of("mpir.dll", "mathsat.dll", "mathsat5j.dll");
         else
-            return Set.of(Paths.get("bin/libmathsat5j.so"));
+            return Set.of("libmathsat5j.so");
     }
 }
