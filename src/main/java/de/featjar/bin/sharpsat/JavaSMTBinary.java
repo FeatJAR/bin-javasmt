@@ -22,11 +22,10 @@ package de.featjar.bin.sharpsat;
 
 import de.featjar.util.bin.Binary;
 import de.featjar.util.bin.OperatingSystem;
-import org.sosy_lab.common.NativeLibraries;
-
 import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.util.Set;
+import org.sosy_lab.common.NativeLibraries;
 
 public class JavaSMTBinary extends Binary {
     static {
@@ -50,9 +49,7 @@ public class JavaSMTBinary extends Binary {
 
     @Override
     public Set<String> getResourceNames() {
-        if (OperatingSystem.IS_WINDOWS)
-            return Set.of("mpir.dll", "mathsat.dll", "mathsat5j.dll");
-        else
-            return Set.of("libmathsat5j.so");
+        if (OperatingSystem.IS_WINDOWS) return Set.of("mpir.dll", "mathsat.dll", "mathsat5j.dll");
+        else return Set.of("libmathsat5j.so");
     }
 }
