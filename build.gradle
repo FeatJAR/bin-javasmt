@@ -6,3 +6,10 @@ dependencies {
     api 'de.featjar:util'
     api 'org.sosy-lab:java-smt:3.12.0'
 }
+
+license {
+    ext {
+        author = 'Sebastian Krieter, Elias Kuiter'
+        url = 'https://github.com/FeatJAR/bin-javasmt'
+    }
+}
