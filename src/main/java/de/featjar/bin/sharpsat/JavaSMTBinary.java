@@ -49,7 +49,8 @@ public class JavaSMTBinary extends Binary {
 
     @Override
     public Set<String> getResourceNames() {
-        if (OperatingSystem.IS_WINDOWS) return Set.of("mpir.dll", "mathsat.dll", "mathsat5j.dll");
-        else return Set.of("libmathsat5j.so");
+    	return (OperatingSystem.IS_WINDOWS)
+    			? Set.of("mpir.dll", "mathsat.dll", "mathsat5j.dll")
+    			: Set.of("libmathsat5j.so");
     }
 }
