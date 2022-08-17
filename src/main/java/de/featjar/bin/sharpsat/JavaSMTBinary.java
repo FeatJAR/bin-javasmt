@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with bin-javasmt. If not, see <https://www.gnu.org/licenses/>.
  *
- * See <https://github.com/FeatJAR/bin-javasmt> for further information.
+ * See <https://github.com/FeatureIDE/FeatJAR-bin-javasmt> for further information.
  */
 package de.featjar.bin.sharpsat;
 
