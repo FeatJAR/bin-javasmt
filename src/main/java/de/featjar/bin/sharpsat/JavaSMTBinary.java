@@ -20,8 +20,8 @@
  */
 package de.featjar.bin.sharpsat;
 
-import de.featjar.util.bin.Binary;
-import de.featjar.util.bin.OperatingSystem;
+import de.featjar.base.bin.Binary;
+import de.featjar.base.bin.OperatingSystem;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.util.Set;

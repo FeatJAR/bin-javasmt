@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api 'de.featjar:util'
+    api 'de.featjar:base'
     api 'org.sosy-lab:java-smt:3.12.0'
 }
 
