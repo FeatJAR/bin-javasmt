@@ -18,7 +18,7 @@
  *
  * See <https://github.com/FeatureIDE/FeatJAR-bin-javasmt> for further information.
  */
-package de.featjar.bin.sharpsat;
+package de.featjar.bin.javasmt;
 
 import de.featjar.base.bin.Binary;
 import de.featjar.base.bin.OperatingSystem;
