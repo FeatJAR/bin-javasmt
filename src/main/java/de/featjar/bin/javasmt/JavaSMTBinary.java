@@ -21,19 +21,15 @@
 package de.featjar.bin.javasmt;
 
 import de.featjar.base.bin.Binary;
-import de.featjar.base.bin.OperatingSystem;
+import de.featjar.base.bin.HostEnvironment;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.util.Set;
 import org.sosy_lab.common.NativeLibraries;
 
 public class JavaSMTBinary extends Binary {
-    static {
-        new JavaSMTBinary();
-    }
-
     public JavaSMTBinary() {
-        Field nativePathField = null;
+        Field nativePathField;
         try {
             nativePathField = NativeLibraries.class.getDeclaredField("nativePath");
             nativePathField.setAccessible(true);
@@ -43,13 +39,8 @@ public class JavaSMTBinary extends Binary {
     }
 
     @Override
-    public Path getPath() {
-        return null;
-    }
-
-    @Override
     public Set<String> getResourceNames() {
-    	return (OperatingSystem.IS_WINDOWS)
+    	return HostEnvironment.isWindows()
     			? Set.of("mpir.dll", "mathsat.dll", "mathsat5j.dll")
     			: Set.of("libmathsat5j.so");
     }
