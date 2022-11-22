@@ -22,13 +22,15 @@ package de.featjar.bin.javasmt;
 
 import de.featjar.base.bin.Binary;
 import de.featjar.base.bin.HostEnvironment;
+
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.util.Set;
 import org.sosy_lab.common.NativeLibraries;
 
 public class JavaSMTBinary extends Binary {
-    public JavaSMTBinary() {
+    public JavaSMTBinary() throws IOException {
         Field nativePathField;
         try {
             nativePathField = NativeLibraries.class.getDeclaredField("nativePath");
