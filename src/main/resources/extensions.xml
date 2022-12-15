@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <extensions>
-    <point id="de.featjar.base.bin.Binaries">
+    <point id="de.featjar.base.env.Binaries">
         <extension id="de.featjar.bin.javasmt.JavaSMTBinary" />
     </point>
 </extensions>

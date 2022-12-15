@@ -20,12 +20,11 @@
  */
 package de.featjar.bin.javasmt;
 
-import de.featjar.base.bin.Binary;
-import de.featjar.base.bin.HostEnvironment;
+import de.featjar.base.env.Binary;
+import de.featjar.base.env.HostEnvironment;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.nio.file.Path;
 import java.util.Set;
 import org.sosy_lab.common.NativeLibraries;
 
