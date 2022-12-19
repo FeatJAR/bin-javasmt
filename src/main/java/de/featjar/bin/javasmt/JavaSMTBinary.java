@@ -20,12 +20,13 @@
  */
 package de.featjar.bin.javasmt;
 
+import de.featjar.base.data.Sets;
 import de.featjar.base.env.Binary;
 import de.featjar.base.env.HostEnvironment;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Set;
+import java.util.LinkedHashSet;
 import org.sosy_lab.common.NativeLibraries;
 
 public class JavaSMTBinary extends Binary {
@@ -40,9 +41,9 @@ public class JavaSMTBinary extends Binary {
     }
 
     @Override
-    public Set<String> getResourceNames() {
+    public LinkedHashSet<String> getResourceNames() {
     	return HostEnvironment.isWindows()
-    			? Set.of("mpir.dll", "mathsat.dll", "mathsat5j.dll")
-    			: Set.of("libmathsat5j.so");
+    			? Sets.of("mpir.dll", "mathsat.dll", "mathsat5j.dll")
+    			: Sets.of("libmathsat5j.so");
     }
 }
