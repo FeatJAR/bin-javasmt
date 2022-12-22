@@ -21,7 +21,7 @@
 package de.featjar.bin.javasmt;
 
 import de.featjar.base.data.Sets;
-import de.featjar.base.env.Binary;
+import de.featjar.base.env.ABinary;
 import de.featjar.base.env.HostEnvironment;
 
 import java.io.IOException;
@@ -29,13 +29,13 @@ import java.lang.reflect.Field;
 import java.util.LinkedHashSet;
 import org.sosy_lab.common.NativeLibraries;
 
-public class JavaSMTBinary extends Binary {
+public class JavaSMTBinary extends ABinary {
     public JavaSMTBinary() throws IOException {
         Field nativePathField;
         try {
             nativePathField = NativeLibraries.class.getDeclaredField("nativePath");
             nativePathField.setAccessible(true);
-            nativePathField.set(null, Binary.BINARY_DIRECTORY);
+            nativePathField.set(null, ABinary.BINARY_DIRECTORY);
         } catch (NoSuchFieldException | IllegalAccessException ignored) {
         }
     }
