@@ -23,7 +23,6 @@ package de.featjar.bin.javasmt;
 import de.featjar.base.data.Sets;
 import de.featjar.base.env.ABinary;
 import de.featjar.base.env.HostEnvironment;
-
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.LinkedHashSet;
@@ -42,8 +41,8 @@ public class JavaSMTBinary extends ABinary {
 
     @Override
     public LinkedHashSet<String> getResourceNames() {
-    	return HostEnvironment.isWindows()
-    			? Sets.of("mpir.dll", "mathsat.dll", "mathsat5j.dll")
-    			: Sets.of("libmathsat5j.so");
+        return HostEnvironment.isWindows()
+                ? Sets.of("mpir.dll", "mathsat.dll", "mathsat5j.dll")
+                : Sets.of("libmathsat5j.so");
     }
 }
