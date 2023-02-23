@@ -18,12 +18,11 @@
  *
  * See <https://github.com/FeatJAR/bin-javasmt> for further information.
  */
-package de.featjar.bin.sharpsat;
+package de.featjar.bin.smt;
 
 import de.featjar.util.bin.Binary;
 import de.featjar.util.bin.OperatingSystem;
 import java.lang.reflect.Field;
-import java.nio.file.Path;
 import java.util.Set;
 import org.sosy_lab.common.NativeLibraries;
 
@@ -40,11 +39,6 @@ public class JavaSMTBinary extends Binary {
             nativePathField.set(null, Binary.BINARY_DIRECTORY);
         } catch (NoSuchFieldException | IllegalAccessException ignored) {
         }
-    }
-
-    @Override
-    public Path getPath() {
-        return null;
     }
 
     @Override
