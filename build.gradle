@@ -10,7 +10,6 @@ dependencies {
 
 license {
     ext {
-        author = 'Sebastian Krieter, Elias Kuiter'
-        url = 'https://github.com/FeatureIDE/FeatJAR-bin-javasmt'
+        licence_url = 'https://github.com/FeatureIDE/FeatJAR-bin-javasmt'
     }
 }
